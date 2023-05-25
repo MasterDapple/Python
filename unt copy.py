@@ -60,18 +60,18 @@ for char in range(0,len(bibliography) - 7):
 
 dictionary = dict(list(zip(labellist, reflist)))
 output =''
-orphanlist =''
+ollist =''
 try:
     for name in authorlist:
         output += '\\bibitem{' + name + '}\n' + dictionary[name] + '\n\n'
     if len(authorlist) < len(labellist):
         output+="%" + "-"*80 + "\n"
         output+= "%"+ " The following %d references are in thebibliography but not cited in the text:\n\n" % (len(reflist) - len(authorlist)) 
-        orphanlist = list(set(labellist)-set(authorlist))
-        for name in range(0, len(orphanlist)-1):
-            output += '\\bibitem{' + orphanlist[name] + '}\n' + dictionary[orphanlist[name]] + '\n\n'
+        ollist = list(set(labellist)-set(authorlist))
+        for name in range(0, len(ollist)-1):
+            output += '\\bibitem{' + ollist[name] + '}\n' + dictionary[ollist[name]] + '\n\n'
     print(("\n\n%d unique references were found in the text and sorted in order of appearance in the text" % (len(authorlist))))
-    print(("%d additional references were found in \\thebibliography which were not used in the text" % (len(orphanlist))))
+    print(("%d additional references were found in \\thebibliography which were not used in the text" % (len(ollist))))
     print(("\nNew bibliography saved as:\n%s\n\nUsing a text editor, Copy all contents of this file,\nand Paste over the existing mybibliography in your LaTeX source file:\n%s\n" % (filename[:-4]+'_NewBib.txt',filename)))
     fileobject = open(filename[:-4]+'_NewBib.txt', 'w')
     fileobject.write(output)
